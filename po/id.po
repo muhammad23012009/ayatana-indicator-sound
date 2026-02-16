@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-11 00:03+0200\n"
-"PO-Revision-Date: 2026-02-16 11:48+0000\n"
+"PO-Revision-Date: 2026-02-17 12:09+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/ayatana-"
 "indicators/sound-applet/id/>\n"
@@ -17,28 +17,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16\n"
 
 #: data/org.ayatana.indicator.sound.AccountsService.policy:5
 msgid "Set properties of own user"
-msgstr ""
+msgstr "Atur properti pengguna sendiri"
 
 #: data/org.ayatana.indicator.sound.AccountsService.policy:6
 msgid "Authentication is required to set one's own indicator sound properties."
-msgstr ""
+msgstr "Autentikasi diperlukan untuk mengatur properti suara indikator sendiri."
 
 #: data/org.ayatana.indicator.sound.AccountsService.policy:15
 msgid "Set properties of any user"
-msgstr ""
+msgstr "Atur properti pengguna mana pun"
 
 #: data/org.ayatana.indicator.sound.AccountsService.policy:16
 msgid ""
 "Authentication is required to set another user's indicator sound properties."
 msgstr ""
+"Autentikasi diperlukan untuk mengatur properti suara indikator pengguna lain."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:1
 msgid "A list of applications blacklisted from the sound menu"
-msgstr "Daftar aplikasi yang masuk daftar hitam dari menu suara"
+msgstr "Daftar aplikasi yang dimasukkan ke daftar hitam dari menu suara"
 
 #: data/org.ayatana.indicator.sound.gschema.xml:2
 msgid ""
@@ -47,12 +48,15 @@ msgid ""
 "desktop suffix) of applications which do not want to be included in the "
 "sound menu."
 msgstr ""
+"Setiap pemutar media yang mematuhi spesifikasi MPRIS2 akan secara otomatis "
+"muncul di menu. Array ini harus berisi nama file desktop (tanpa akhiran "
+".desktop) dari aplikasi yang tidak ingin disertakan dalam menu suara."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:3
 msgid ""
 "A list of applications which at some point have registered with the sound "
 "menu"
-msgstr ""
+msgstr "Daftar aplikasi yang pernah terdaftar di menu suara"
 
 #: data/org.ayatana.indicator.sound.gschema.xml:4
 msgid ""
@@ -61,32 +65,36 @@ msgid ""
 "desktop suffix) of applications which have at some point appeared in the "
 "menu. This allows the menu remember and display offlined applications."
 msgstr ""
+"Setiap pemutar media yang mematuhi spesifikasi MPRIS2 akan secara otomatis "
+"muncul di menu. Array ini harus berisi nama file desktop (tanpa akhiran "
+".desktop) dari aplikasi yang pernah muncul di menu. Ini memungkinkan menu "
+"mengingat dan menampilkan aplikasi yang sedang offline."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:5
 msgid ""
 "A list of applications that will have player controls visible all the time"
-msgstr ""
+msgstr "Daftar aplikasi yang akan memiliki kontrol pemutar terlihat setiap saat"
 
 #: data/org.ayatana.indicator.sound.gschema.xml:6
 msgid "Initial setting for global mute (mute all) on the menu"
-msgstr ""
+msgstr "Pengaturan awal untuk mute global (mute semua) di menu"
 
 #: data/org.ayatana.indicator.sound.gschema.xml:7
 msgid "On start up volume should not be muted."
-msgstr ""
+msgstr "Saat startup volume tidak boleh di-mute."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:9
 #, no-c-format
 msgid "Whether the volume slider allows setting the volume above 100%"
-msgstr ""
+msgstr "Apakah slider volume mengizinkan pengaturan volume di atas 100%"
 
 #: data/org.ayatana.indicator.sound.gschema.xml:10
 msgid "Whether or not to show the sound indicator in the menu bar."
-msgstr ""
+msgstr "Apakah akan menampilkan indikator suara di bilah menu atau tidak."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:11
 msgid "Whether or not to show high volume warnings."
-msgstr ""
+msgstr "Apakah akan menampilkan peringatan volume tinggi atau tidak."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:12
 msgid ""
@@ -97,10 +105,16 @@ msgid ""
 "volume-decibels AND (d) the user has not indicated approval in the last "
 "warning-volume-approval-ttl seconds."
 msgstr ""
+"Jika diaktifkan pada perangkat, dialog konfirmasi akan ditampilkan kepada "
+"pengguna jika (a) sesuatu dicolokkan ke jack headphone (yaitu, tidak ada "
+"peringatan untuk volume speaker) DAN (b) media sedang diputar (yaitu, tidak "
+"ada peringatan untuk volume nada dering) DAN (c) pengguna mencoba mengatur "
+"volume lebih tinggi dari warning-volume-decibels DAN (d) pengguna belum "
+"menunjukkan persetujuan dalam warning-volume-approval-ttl detik terakhir."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:13
 msgid "How many seconds a user's warning-volume approval should be remembered."
-msgstr ""
+msgstr "Berapa detik persetujuan warning-volume pengguna harus diingat."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:14
 msgid ""
@@ -111,20 +125,28 @@ msgid ""
 "EU standard EN 60950-1/Al2: “The acknowledgement does not need to be "
 "repeated more than once every 20 h of cumulative listening time.”"
 msgstr ""
+"Berapa lama untuk mengingat persetujuan pengguna dari dialog konfirmasi yang "
+"dibahas dalam deskripsi 'warning-volume-enabled'.\n"
+"\n"
+"Nilai default (72.000 detik) sesuai dengan 20 jam yang disarankan oleh "
+"standar EU EN 60950-1/Al2: \"Pengakuan tidak perlu diulang lebih dari sekali "
+"setiap 20 jam waktu mendengarkan kumulatif.\""
 
 #: data/org.ayatana.indicator.sound.gschema.xml:17
 msgid "Volume level that triggers a high volume warning."
-msgstr ""
+msgstr "Level volume yang memicu peringatan volume tinggi."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:18
 msgid ""
 "Volume level that triggers a high volume warning. See warning-volume-enabled "
 "for details."
 msgstr ""
+"Level volume yang memicu peringatan volume tinggi. Lihat warning-volume-"
+"enabled untuk detail."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:19
 msgid "Normal output volume."
-msgstr ""
+msgstr "Volume output normal."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:20
 msgid ""
@@ -137,12 +159,22 @@ msgid ""
 "\n"
 "The default value (0) corresponds to PulseAudio's PA_VOLUME_NORM."
 msgstr ""
+"Volume maksimum saat pengaturan 'allow-amplified-volume' com.lomiri.sound "
+"dinonaktifkan.\n"
+"\n"
+"Untuk mematuhi standar EU EN 60950-1/Al2, nilai ini tidak boleh diatur ke dB "
+"yang menyebabkan output suara headphone melebihi 100 dBA, atau output "
+"listrik melebihi 150 mV.\n"
+"\n"
+"Nilai default (0) sesuai dengan PA_VOLUME_NORM PulseAudio."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:25
 msgid ""
 "Output volume to use when com.lomiri.sound's 'allow-amplified-volume' "
 "setting is enabled."
 msgstr ""
+"Volume output yang digunakan saat pengaturan 'allow-amplified-volume' "
+"com.lomiri.sound diaktifkan."
 
 #: data/org.ayatana.indicator.sound.gschema.xml:26
 msgid ""
@@ -155,12 +187,20 @@ msgid ""
 "\n"
 "The default value (11) corresponds to PulseAudio's PA_VOLUME_UI_MAX."
 msgstr ""
+"Volume maksimum saat pengaturan 'allow-amplified-volume' com.lomiri.sound "
+"diaktifkan.\n"
+"\n"
+"Untuk mematuhi standar EU EN 60950-1/Al2, nilai ini tidak boleh diatur ke dB "
+"yang menyebabkan output suara headphone melebihi 100 dBA, atau output "
+"listrik melebihi 150 mV.\n"
+"\n"
+"Nilai default (11) sesuai dengan PA_VOLUME_UI_MAX PulseAudio."
 
 #: src/info-notification.vala:27 src/info-notification.vala:69
 #: src/service.vala:294 src/service.vala:297 src/sound-menu.vala:70
 #: src/sound-menu.vala:264 src/warn-notification.vala:33
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: src/info-notification.vala:79
 msgid "Speakers"
@@ -172,44 +212,44 @@ msgstr "Headphone"
 
 #: src/info-notification.vala:83
 msgid "Bluetooth headphones"
-msgstr ""
+msgstr "Headphone Bluetooth"
 
 #: src/info-notification.vala:85
 msgid "Bluetooth speaker"
-msgstr ""
+msgstr "Speaker Bluetooth"
 
 #: src/info-notification.vala:87
 msgid "Usb speaker"
-msgstr ""
+msgstr "Speaker Usb"
 
 #: src/info-notification.vala:89
 msgid "Usb headphones"
-msgstr ""
+msgstr "Headphone Usb"
 
 #: src/info-notification.vala:91
 msgid "HDMI speaker"
-msgstr ""
+msgstr "Speaker HDMI"
 
 #: src/info-notification.vala:93
 msgid "HDMI headphones"
-msgstr ""
+msgstr "Headphone HDMI"
 
 #: src/service.vala:266
 msgid "Missing application"
-msgstr ""
+msgstr "Aplikasi tidak ada"
 
 #: src/service.vala:266
 #, c-format
 msgid "Could not find the '%s' application - please make sure it is installed."
-msgstr ""
+msgstr "Tidak dapat menemukan aplikasi '%s' - pastikan sudah terinstal."
 
 #: src/service.vala:291
 msgid "Volume (muted)"
-msgstr ""
+msgstr "Volume (di-mute)"
 
 #: src/service.vala:294
 msgid "silent"
-msgstr ""
+msgstr "senyap"
 
 #: src/service.vala:302
 msgid "Sound"
@@ -217,66 +257,68 @@ msgstr "Suara"
 
 #: src/service.vala:303
 msgid "Sound settings & media player controls"
-msgstr ""
+msgstr "Pengaturan suara & kontrol pemutar media"
 
 #: src/sound-menu.vala:55 src/sound-menu.vala:59
 msgid "Mute"
-msgstr ""
+msgstr "Mute"
 
 #: src/sound-menu.vala:65
 msgid "Silent Mode"
-msgstr ""
+msgstr "Mode Senyap"
 
 #: src/sound-menu.vala:79
 msgid "Sound Settings…"
-msgstr "Pengaturan suara…"
+msgstr "Pengaturan Suara…"
 
 #: src/sound-menu.vala:136
 msgid "Microphone Volume"
-msgstr ""
+msgstr "Volume Mikrofon"
 
 #. NOTE: Action doesn't really exist, just used to find below when removing
 #: src/sound-menu.vala:159
 msgid "High volume can damage your hearing."
-msgstr ""
+msgstr "Volume tinggi dapat merusak pendengaran Anda."
 
 #: src/sound-menu.vala:267
 msgid "Volume (Headphones)"
-msgstr ""
+msgstr "Volume (Headphone)"
 
 #: src/sound-menu.vala:270
 msgid "Volume (Bluetooth)"
-msgstr ""
+msgstr "Volume (Bluetooth)"
 
 #: src/sound-menu.vala:273
 msgid "Volume (Usb)"
-msgstr ""
+msgstr "Volume (Usb)"
 
 #: src/sound-menu.vala:276
 msgid "Volume (HDMI)"
-msgstr ""
+msgstr "Volume (HDMI)"
 
 #: src/sound-menu.vala:279
 msgid "Volume (Bluetooth headphones)"
-msgstr ""
+msgstr "Volume (Headphone Bluetooth)"
 
 #: src/sound-menu.vala:282
 msgid "Volume (Usb headphones)"
-msgstr ""
+msgstr "Volume (Headphone Usb)"
 
 #: src/sound-menu.vala:285
 msgid "Volume (HDMI headphones)"
-msgstr ""
+msgstr "Volume (Headphone HDMI)"
 
 #: src/sound-menu.vala:460
 msgid "Choose Playlist"
-msgstr ""
+msgstr "Pilih Playlist"
 
 #: src/warn-notification.vala:34
 msgid ""
 "Allow volume above safe level?\n"
 "High volume can damage your hearing."
 msgstr ""
+"Izinkan volume di atas level aman?\n"
+"Volume tinggi dapat merusak pendengaran Anda."
 
 #: src/warn-notification.vala:48
 msgid "OK"
@@ -284,4 +326,4 @@ msgstr "OK"
 
 #: src/warn-notification.vala:51
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
