@@ -304,7 +304,7 @@ public class VolumeControlPulse : VolumeControl
     private DBusMessage pulse_dbus_filter (DBusConnection connection, owned DBusMessage message, bool incoming)
     {
         if (message.get_message_type () == DBusMessageType.SIGNAL) {
-            string active_role_objp = _objp_role_alert;
+            string active_role_objp = _objp_role_multimedia;
             if (_active_sink_input != -1)
                 active_role_objp = _sink_input_hash.get (_active_sink_input);
 
@@ -360,7 +360,7 @@ public class VolumeControlPulse : VolumeControl
     private async void update_active_sink_input (int32 index)
     {
         if ((index == -1) || (index != _active_sink_input && index in _sink_input_list)) {
-            string sink_input_objp = _objp_role_alert;
+            string sink_input_objp = _objp_role_multimedia;
             if (index != -1)
                 sink_input_objp = _sink_input_hash.get (index);
             _active_sink_input = index;
@@ -643,7 +643,7 @@ public class VolumeControlPulse : VolumeControl
 
     private async void set_volume_active_role ()
     {
-        string active_role_objp = _objp_role_alert;
+        string active_role_objp = _objp_role_multimedia;
 
         if (_active_sink_input != -1 && _active_sink_input in _sink_input_list)
             active_role_objp = _sink_input_hash.get (_active_sink_input);
