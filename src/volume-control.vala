@@ -41,15 +41,19 @@ public abstract class VolumeControl : Object
 	}
 
 	public enum Stream {
+		CURRENT,
 		ALERT,
 		MULTIMEDIA,
 		ALARM,
 		PHONE
 	}
 
-	public class Volume : Object {
+	public abstract class Volume : Object {
 		public double volume;
 		public VolumeReasons reason;
+
+		public abstract void set_volume (double volume);
+		public abstract void set_volume_for_stream (VolumeControl.Stream stream, double volume);
 	}
 
 	protected IndicatorSound.Options _options = null;
@@ -58,23 +62,38 @@ public abstract class VolumeControl : Object
 		_options = options;
 	}
 
+	public Stream str_to_stream (string str) {
+		if (str == "multimedia")
+			return Stream.MULTIMEDIA;
+		if (str == "alert")
+			return Stream.ALERT;
+		if (str == "alarm")
+			return Stream.ALARM;
+		if (str == "phone")
+			return Stream.PHONE;
+
+		return Stream.CURRENT;
+	}
+
 	public Stream active_stream { get; protected set; default = Stream.ALERT; }
 	public bool ready { get; protected set; default = false; }
 	public virtual bool active_mic { get { return false; } set { } }
 	public virtual bool mute { get { return false; } }
 	public bool is_playing { get; protected set; default = false; }
-	private Volume _volume;
 	private double _pre_clamp_volume;
-	public virtual Volume volume { get { return _volume; } set { } }
+	public Volume volume;
 	public virtual double mic_volume { get { return 0.0; } set { } }
 
 	public abstract void set_mute (bool mute);
 
-	public void set_volume_clamp (double unclamped, VolumeControl.VolumeReasons reason) {
-		var v = new VolumeControl.Volume();
-		v.volume = unclamped.clamp (0.0, _options.max_volume);
-		v.reason = reason;
-		this.volume = v;
+	public void set_volume_clamp (double unclamped, VolumeControl.VolumeReasons reason, Stream stream) {
+		if (stream == Stream.CURRENT) {
+			this.volume.set_volume (unclamped.clamp (0.0, _options.max_volume));
+		} else {
+			this.volume.set_volume_for_stream (stream, unclamped.clamp (0.0, _options.max_volume));
+		}
+
+		this.volume.reason = reason;
 		_pre_clamp_volume = unclamped;
 	}
 

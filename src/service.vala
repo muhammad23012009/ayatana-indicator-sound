@@ -71,7 +71,7 @@ public class IndicatorSound.Service: Object {
         });
 
         this._volume_warning.cancel_pressed.connect( (cancel_volume) => {
-            volume_control.set_volume_clamp (cancel_volume, VolumeControl.VolumeReasons.USER_KEYPRESS);
+            volume_control.set_volume_clamp (cancel_volume, VolumeControl.VolumeReasons.USER_KEYPRESS, VolumeControl.Stream.CURRENT);
         });
 
         this.accounts_service = accounts;
@@ -191,7 +191,7 @@ public class IndicatorSound.Service: Object {
 
     const ActionEntry[] action_entries = {
         { "root", null, null, "@a{sv} {}", null },
-        { "scroll", activate_scroll_action, "i", null, null },
+        { "scroll", activate_scroll_action, "a{sv}", null, null },
         { "desktop-settings", activate_desktop_settings, null, null, null },
         { "phone-settings", activate_phone_settings, null, null, null },
         { "indicator-shown", null, null, "@b false", null },
@@ -216,7 +216,21 @@ public class IndicatorSound.Service: Object {
     const double volume_step_percentage = 0.02;
 
     private void activate_scroll_action (SimpleAction action, Variant? param) {
-        int direction = param.get_int32(); // positive for up, negative for down
+        // a{sv}
+        VariantIter iter = param.iterator ();
+        string? key = null;
+        Variant? val = null;
+
+        print ("MEOW");
+        while (iter.next ("{sv}", out key, out val)) {
+            print ("Key: %s, Type: %s, Value: %s\n", 
+                   key, 
+                   val.get_type_string (), 
+                   val.print (false));
+        }
+
+        VolumeControl.Stream stream = volume_control.str_to_stream (param.lookup_value ("role", VariantType.STRING).get_string ());
+        int direction = param.lookup_value ("volume", VariantType.INT32).get_int32 (); // positive for up, negative for down
         debug("scroll: %d", direction);
 
         if (_volume_warning.active) {
@@ -232,7 +246,7 @@ public class IndicatorSound.Service: Object {
                 volume_control.set_mute (false);
             }
 
-            volume_control.set_volume_clamp (v, VolumeControl.VolumeReasons.USER_KEYPRESS);
+            volume_control.set_volume_clamp (v, VolumeControl.VolumeReasons.USER_KEYPRESS, stream);
         }
     }
 
@@ -290,6 +304,7 @@ public class IndicatorSound.Service: Object {
 
     void update_root_icon () {
         double volume = this.volume_control.volume.volume;
+        warning ("meow %f", volume);
         unowned string icon = get_volume_root_icon (volume, this.volume_control.mute, volume_control.active_output());
 
         string accessible_name;
@@ -431,7 +446,10 @@ public class IndicatorSound.Service: Object {
     /* volume control's range can vary depending on options.max_volume,
      * but the action always needs to be in [0.0, 1.0]... */
     private Variant create_volume_action_state() {
-        return new Variant.double (get_volume_percent());
+        // empty string for current stream, and stream roles for selecting a specific stream
+        var builder = new VariantBuilder (VariantType.VARDICT);
+        builder.add ("{sv}", "volume", new Variant ("d", get_volume_percent()));
+        return builder.end ();
     }
 
     private void update_volume_action_state() {
@@ -440,17 +458,21 @@ public class IndicatorSound.Service: Object {
 
     private SimpleAction volume_action;
     private Action create_volume_action () {
-        volume_action = new SimpleAction.stateful ("volume", VariantType.INT32, create_volume_action_state());
+        // dict entry with two keys, called "role" (for specifying type of stream) and "volume"
+        // if "role" isn't present then it defaults to controlling the current stream volume
+
+        volume_action = new SimpleAction.stateful ("volume", new VariantType ("a{sv}"), create_volume_action_state());
 
         volume_action.change_state.connect ( (action, val) => {
-            double v = val.get_double () * _options.max_volume;
+            VolumeControl.Stream stream = volume_control.str_to_stream (val.lookup_value ("role", VariantType.STRING).get_string ());
+            double v = val.lookup_value ("volume", VariantType.DOUBLE).get_double () * _options.max_volume;
 
             if (v > 0.0 && volume_control.mute == true)
             {
                 volume_control.set_mute (false);
             }
 
-            volume_control.set_volume_clamp (v, VolumeControl.VolumeReasons.USER_KEYPRESS);
+            volume_control.set_volume_clamp (v, VolumeControl.VolumeReasons.USER_KEYPRESS, stream);
         });
 
         /* activating this action changes the volume by the amount given in the parameter */
